@@ -1,7 +1,7 @@
 CC = gcc
 OBJNAME = WebStudy
 
-OBJECTS = main.o general.o service.o webStudy.o reg.o initfile.o HyperLink.o
+OBJECTS = main.o general.o service.o webStudy.o reg.o initfile.o HyperLink.o stringx.o
 
 $(OBJNAME): $(OBJECTS)
 	$(CC) -fexec-charset=UTF-8 -finput-charset=GBK $(OBJECTS) -lgdi32 -lcomctl32 -mwindows -o $(OBJNAME) 
@@ -15,10 +15,13 @@ HyperLink.o: HyperLink.c HyperLink.h
 general.o: general.c general.h
 	   $(CC) -c general.c	
 
+stringx.o: stringx.c stringx.h
+	   $(CC) -c stringx.c	
+
 reg.o: reg.c reg.h
 	$(CC) -c reg.c 
 
-initfile.o: initfile.c initfile.h general.c general.h
+initfile.o: initfile.c initfile.h general.c general.h stringx.c stringx.h
 	   $(CC) -c initfile.c 
 
 service.o: service.c service.h general.c general.h

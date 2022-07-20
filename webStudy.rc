@@ -84,9 +84,9 @@ STRINGTABLE
     IDS_STOPSVC                   "服务器已关闭或正在尽进行其他操作，请稍后再试。"
     IDS_RESETSVC_1                "没有找到相关文件安装目前及程序，请确认是否由本程序安装的服务系统。"
     IDS_RESETSVC_2                "重置后将卸载服务系统并退出本程序，如还需要继续使用服务系统\n\n请重新运行本程序，程序会自动配置并安装相关服务系统。"
-    IDS_HELP_1                    "        WebStudy 为满足学习 Web + PHP + MySQL 诞生的一款开源程序。作者Dirk也是在工作之余完成的，供大家学习和研究 Web 及后端方便。如有什么改进意见和建议可通邮件告知我：68672696@qq.com。 "
+    IDS_HELP_1                    "        WebStudy 为满足学习 Web + PHP + MySQL 诞生的一款开源程序。作者Dirk.Gao也是在工作之余完成的，供大家学习和研究 Web 及后端方便。如有什么改进意见和建议可通邮件告知我：68672696@qq.com。 "
     IDS_HELP_2                    "        Apache24 一款应用最为广泛的 Web 服务器软件，大家可以从http://httpd.apache.org/进一步了解他。其于 Windows 下的相关安装的 .zip文件，我将下载链接提供在本页供大家下载学习。"
-    IDS_HELP_3                    "        PHP 的易学易用性，在这里我就不用介绍了，大家可以从https://www.php.net/了解到更多内容。另外本程序提供了PHP7和PHP5的安装设置，请放心下载不同版本。"
+    IDS_HELP_3                    "        PHP 的易学易用性，在这里我就不用介绍了，大家可以从https://www.php.net/了解到更多内容。另外本程序提供了PHP8/7/5的安装设置，请放心下载不同版本的Thread .zip文件。"
     IDS_HELP_4                    "        MySQL 是一款免费的服务器数据库程序，目前提供的 .zip下载文件只有WIN64位的8.0版和WIN32的5.7版，大家可以从https://dev.mysql.com下载学习。"
 }
 

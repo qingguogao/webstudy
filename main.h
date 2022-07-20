@@ -21,8 +21,7 @@
 #define APACHE24_EXE 	bin\\httpd.exe
 #define PHP_INI 	php.ini-development
 #define PHP_EXE 	php.exe
-#define PHP_DLL7 	php7apache2_4.dll
-#define PHP_DLL5 	php5apache2_4.dll
+#define PHP_DLL 	php?apache2_4.dll
 #define MYSQL_EXE 	bin\\mysqld.exe
 #define MYSQL_INI	my.ini
 

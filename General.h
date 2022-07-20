@@ -36,49 +36,13 @@ void DebugPrivilege();
 
 int WINAPI FormatMessageBox(LPCTSTR lpCaption, UINT uType, char *lpFormat, ...);
 
-
-
 //*************************************************************
 //
-//  strrep()
-//
-//  Purpose:    Replace the first occurrence of ostr string in dest string with nstr string.
-//
-//  Parameters: dest   -   Destination string.
-//              ostr   -   Old string.
-//              nstr   -   New string.
-//
-//  Return:     Successful return new destination string address, no successful return ostr string address.
-//
-//*************************************************************
-
-char *strrep(char *dest, char *ostr, const char *nstr);
-
-
-//*************************************************************
-//
-//  strnrep()
-//
-//  Purpose:    Replace the all occurrence of ostr string in dest string with nstr string.
-//
-//  Parameters: dest   -   Destination string.
-//              ostr   -   Old string.
-//              nstr   -   New string.
-//
-//  Return:     Successful return new destination string address, no successful return ostr string address.
-//
-//*************************************************************
-
-char *strnrep(char *dest, char *ostr, const char *nstr);
-
-
-//*************************************************************
-//
-//  GetFileDirectory()
+//  GetFileFullDirectory()
 //
 //  Purpose:    Find whether the folder or file under the current directory exists.
 //
-//  Parameters: szDirFileName   -   Directory and file name buffer, on NULL return value.
+//  Parameters: szDirFileName   -   Directory and file name buffer, on NULL return full file directory value.
 //              szFileName      -   File name or directory name.If the file in the subdirectory
 //                                  needs to be \\ separated from the file name.
 //
@@ -87,7 +51,7 @@ char *strnrep(char *dest, char *ostr, const char *nstr);
 //
 //*************************************************************
 
-BOOL GetFileDirectory(char *szDirFileName, char *szFileName);
+BOOL GetFileFullDirectory(char *szFileFullPathBuffer, const char *szFileName);
 
 
 //*************************************************************

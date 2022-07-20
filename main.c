@@ -231,11 +231,11 @@ BOOL Apache24Init(HWND hwnd)
 
 	char szCurrentDirectory[MAX_PATH] = { 0 };
 
-	GetCurrentDirectory(MAX_PATH, szCurrentDirectory);
+	GetCurrentDirectory(MAX_PATH, szCurrentDirectory);//Get current directory 
 	strcat(szCurrentDirectory,"\\");
 
 	//find httpd.exe file
-	if(!GetFileDirectory(NULL, FILE_DIR(APACHE24_DIR,APACHE24_EXE))) {
+	if(!GetFileFullDirectory(NULL, FILE_DIR(APACHE24_DIR,APACHE24_EXE))) {
 		MessageBox(NULL, szExplainBuff[0], "Warning Messages", MB_OK | MB_ICONWARNING);
 		return FALSE;
 	}
@@ -246,8 +246,7 @@ BOOL Apache24Init(HWND hwnd)
 	}
 
 	//find php.exe and phpXapache2_4.dll
-	if(!(GetFileDirectory(NULL, FILE_DIR(PHP_DIR,PHP_EXE)) && 
-		(GetFileDirectory(NULL, FILE_DIR(PHP_DIR,PHP_DLL7)) || GetFileDirectory(NULL, FILE_DIR(PHP_DIR,PHP_DLL5))))) {
+	if(!(GetFileFullDirectory(NULL, FILE_DIR(PHP_DIR,PHP_EXE)) && GetFileFullDirectory(NULL, FILE_DIR(PHP_DIR,PHP_DLL)))) {
 		MessageBox(NULL, szExplainBuff[2],"Warning Messages", MB_OK | MB_ICONWARNING);
 		goto ret;
 	} 
@@ -279,7 +278,7 @@ BOOL MySQLInit(HWND hwnd)
 	char szCurrentDirectory[MAX_PATH] = { 0 };
 
 	//find mysqld.exe file
-	if(!GetFileDirectory(NULL, FILE_DIR(MYSQL_DIR,MYSQL_EXE))) {
+	if(!GetFileFullDirectory(NULL, FILE_DIR(MYSQL_DIR,MYSQL_EXE))) {
 		MessageBox(NULL, szExplainBuff, "Warning Messages", MB_OK | MB_ICONWARNING);
 		return FALSE;
 	}
@@ -308,7 +307,7 @@ void InitService(HWND hwnd)
 		} else {
 			CreateDialog(NULL, MAKEINTRESOURCE(IDD_TIMEDIALOG), NULL, (DLGPROC)TimerDlgMain);
 			memset(szRunName, 0, sizeof(szRunName));
-			GetFileDirectory(szRunName, FILE_DIR(APACHE24_DIR,APACHE24_EXE));
+			GetFileFullDirectory(szRunName, FILE_DIR(APACHE24_DIR,APACHE24_EXE));
 			DoRunProc(szRunName, " -k install -n \"apache24\"");
 
 			if(SearchSvc(_T(APACHE_SVC))) {
@@ -343,7 +342,7 @@ void InitService(HWND hwnd)
 		} else {
 			CreateDialog(NULL, MAKEINTRESOURCE(IDD_TIMEDIALOG), NULL, (DLGPROC)TimerDlgMain);
 			memset(szRunName, 0, sizeof(szRunName));
-			GetFileDirectory(szRunName, FILE_DIR(MYSQL_DIR,MYSQL_EXE));
+			GetFileFullDirectory(szRunName, FILE_DIR(MYSQL_DIR,MYSQL_EXE));
 			DoRunProc(szRunName, " --initialize-insecure --user=mysql");
 			Sleep(1000);
 			strcat(szRunName, " --install");
@@ -422,7 +421,7 @@ void OnResetSvc(HWND hwnd)
 	strcpy(szMySQLDataBak,szMySQLData);
 	strcat(szMySQLDataBak, "_bak");
 
-	if(!(GetFileDirectory(szApache24Name, FILE_DIR(APACHE24_DIR,APACHE24_EXE)) && GetFileDirectory(szMySQLName, FILE_DIR(MYSQL_DIR,MYSQL_EXE)))) {
+	if(!(GetFileFullDirectory(szApache24Name, FILE_DIR(APACHE24_DIR,APACHE24_EXE)) && GetFileFullDirectory(szMySQLName, FILE_DIR(MYSQL_DIR,MYSQL_EXE)))) {
 		MessageBox(hwnd, szExplainBuff[0], "Warning Messages", MB_OK | MB_ICONWARNING);
 		return ;
 	}

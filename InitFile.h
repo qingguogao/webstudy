@@ -3,6 +3,7 @@
 
 #include <windows.h>
 #include "general.h"
+#include "stringx.h"
 
 //*************************************************************
 //

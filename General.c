@@ -67,99 +67,36 @@ void DebugPrivilege()
 //
 //  Purpose:    Find whether the folder or file under the current directory exists.
 //
-//  Parameters: szDirFileName   -   Directory and file name buffer, on NULL return value.
-//              szFileName      -   File name or directory name.
+//  Parameters: szGetFileFullPathBuffer   	-   Directory and file name buffer, on NULL return value.
+//              szFileName      			-   File name or directory name, Wildcards can be used.
 //
 //  Return:     TRUE if successful find.
 //              FALSE if no find.
 //
 //*************************************************************
 
-BOOL GetFileDirectory(char *szDirFileName, char *szFileName)
+BOOL GetFileFullDirectory(char *szFileFullPathBuffer, const char *szFileName)
 {
 	BOOL bRet = FALSE;
-	char szDirectory[MAX_PATH] = { 0 };
-	HANDLE hFind = NULL;
+	char szCurrentDirectory[MAX_PATH] = { 0 };
 	WIN32_FIND_DATA wfdFindData;
 
-	// Get current directory
-	GetCurrentDirectory(MAX_PATH, szDirectory);
-	strcat(szDirectory, "\\");
-	strcat(szDirectory, szFileName);
+	// Get current directory and append file name
+	GetCurrentDirectory(MAX_PATH, szCurrentDirectory);
+	strcat(szCurrentDirectory, "\\");
+	strcat(szCurrentDirectory, szFileName);    //after adding the file name to the current directory
 
 	// Find file 
-	if(INVALID_HANDLE_VALUE != FindFirstFile(szDirectory, &wfdFindData)) {
+	if(INVALID_HANDLE_VALUE != FindFirstFile(szCurrentDirectory, &wfdFindData)) { //find file in the current directory, successful return true
 		bRet = TRUE;
-		if(szDirFileName != NULL) {
-			strcpy(szDirFileName, szDirectory);
+		if(szFileFullPathBuffer != NULL) {
+			strncpy(szFileFullPathBuffer, szCurrentDirectory,strlen(szCurrentDirectory) - strlen(strrchr(szCurrentDirectory,'\\')));
+			strcat(szFileFullPathBuffer, "\\");
+			strcat(szFileFullPathBuffer, wfdFindData.cFileName);
 		}
-	}
-	return bRet;
+	} 
+    return bRet;
 }
-
-
-//*************************************************************
-//
-//  strrep()
-//
-//  Purpose:    Replace the first occurrence of ostr string in dest string with nstr string.
-//
-//  Parameters: dest   -   Destination string.
-//              ostr   -   Old string.
-//              nstr   -   New string.
-//
-//  Return:     Successful return new destination string address, no successful return ostr string address.
-//
-//*************************************************************
-
-char *strrep(char *dest, char *ostr, const char *nstr)
-{
-	if(!strstr(dest, ostr))
-		return ostr;
-
-	int lenght = strlen(dest) + strlen(nstr) - strlen(ostr);
-	char *retstr = malloc((lenght + 1)*sizeof(char));
-
-	int beflen = strstr(dest, ostr) - dest;
-	char *midstr = strstr(dest, ostr);
-
-	int aftlen = strlen(midstr) - strlen(ostr);
-
-	memmove(retstr, dest, beflen);
-	memmove(retstr + beflen, nstr, strlen(nstr));
-	memmove(retstr + beflen + strlen(nstr), midstr + strlen(ostr), aftlen + 1);
-
-	free(dest);
-	return retstr;
-}
-
-
-//*************************************************************
-//
-//  strnrep()
-//
-//  Purpose:    Replace the all occurrence of ostr string in dest string with nstr string.
-//
-//  Parameters: dest   -   Destination string.
-//              ostr   -   Old string.
-//              nstr   -   New string.
-//
-//  Return:     Successful return new destination string address, no successful return ostr string address.
-//
-//*************************************************************
-
-char *strnrep(char *dest, char *ostr, const char *nstr)
-{
-	if(!strstr(dest, ostr))
-		return ostr;
-	do{
-		dest = strrep(dest, ostr, nstr);
-	}while(strstr(dest, ostr));
-
-	return dest;
-}
-
-
 //*************************************************************
 //
 //  ReadTextFile()
